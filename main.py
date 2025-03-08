@@ -10,6 +10,7 @@ FONT_NAME = "Courier"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
+reps = 0
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -17,7 +18,19 @@ LONG_BREAK_MIN = 20
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
 def start_timer():
-    countdown(300)
+    global reps
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
+    if reps % 2 == 0:
+        countdown(work_sec)
+        reps += 1
+    elif reps % 7 == 0:
+        countdown(long_break_sec)
+        reps += 1
+    else:
+        countdown(short_break_sec)
+        reps += 1
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
