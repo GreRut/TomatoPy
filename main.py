@@ -1,4 +1,5 @@
 from tkinter import *
+from math import floor
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -16,13 +17,16 @@ LONG_BREAK_MIN = 20
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
 def start_timer():
-    countdown(5)
+    countdown(300)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
 def countdown(count):
-    canvas.itemconfig(timer, text=count)
+    count_min = floor(count / 60)
+    count_sec = count % 60
+
+    canvas.itemconfig(timer, text=f"{count_min}:{count_sec}")
     if count > 0:
         window.after(1000, countdown, count - 1)
 
@@ -36,7 +40,7 @@ window.config(padx=100, pady=50, bg=YELLOW)
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 tomato_image = PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=tomato_image)
-timer = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
+timer = canvas.create_text(100, 130, text="25:00", fill="white", font=(FONT_NAME, 35, "bold"))
 title_label = Label(text="Timer", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
 start = Button(text="Start", command=start_timer, highlightthickness=0)
 reset = Button(text="Reset", highlightthickness=0)
