@@ -14,7 +14,12 @@ LONG_BREAK_MIN = 20
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+
+def countdown(count):
+    canvas.itemconfig(timer, text=count)
+    if count > 0:
+        window.after(1000, countdown, count-1)
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -25,9 +30,8 @@ window.config(padx=100, pady=50, bg=YELLOW)
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 tomato_image = PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=tomato_image)
-canvas.create_text(100, 130, text="00:00", fill = "white", font=(FONT_NAME, 35, "bold"))
+timer = canvas.create_text(100, 130, text="00:00", fill = "white", font=(FONT_NAME, 35, "bold"))
 title_label = Label(text="Timer", bg=YELLOW, fg= GREEN, font=(FONT_NAME, 50))
-timer = Label(text="00:00", fg= "white", font=(FONT_NAME, 35, "bold"))
 start = Button(text="Start", highlightthickness=0)
 reset = Button(text="Reset", highlightthickness=0)
 tick = Label(text="✓", bg=YELLOW, fg= GREEN, font=(FONT_NAME, 15, "bold"))
@@ -37,5 +41,7 @@ canvas.grid(column=1, row=1)
 start.grid(column=0, row=2)
 reset.grid(column=2, row=2)
 tick.grid(column=1, row=3)
+
+countdown(5)
 
 window.mainloop()
