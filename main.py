@@ -7,7 +7,7 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
+WORK_MIN = 1
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
@@ -45,6 +45,13 @@ def countdown(count):
     canvas.itemconfig(timer, text=f"{count_min}:{count_sec}")
     if count > 0:
         window.after(1000, countdown, count - 1)
+    else:
+        start_timer()
+        marks=""
+        work_sessions = floor(reps/2)
+        for _ in range (work_sessions):
+            marks += "✓"
+        check_marks.config(text=marks)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -60,12 +67,12 @@ timer = canvas.create_text(100, 130, text="25:00", fill="white", font=(FONT_NAME
 title_label = Label(text="Work", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
 start = Button(text="Start", command=start_timer, highlightthickness=0)
 reset = Button(text="Reset", highlightthickness=0)
-tick = Label(text="✓", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 15, "bold"))
+check_marks = Label(text="", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 15, "bold"))
 
 title_label.grid(column=1, row=0)
 canvas.grid(column=1, row=1)
 start.grid(column=0, row=2)
 reset.grid(column=2, row=2)
-tick.grid(column=1, row=3)
+check_marks.grid(column=1, row=3)
 
 window.mainloop()
