@@ -19,18 +19,19 @@ reps = 0
 
 def start_timer():
     global reps
+    reps += 1
     work_sec = WORK_MIN * 60
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
-    if reps % 2 == 0:
-        countdown(work_sec)
-        reps += 1
-    elif reps % 7 == 0:
+    if reps % 8 == 0:
+        title_label.config(text="Break", fg=RED)
         countdown(long_break_sec)
-        reps += 1
-    else:
+    elif reps % 2 == 0:
+        title_label.config(text="Break", fg=PINK)
         countdown(short_break_sec)
-        reps += 1
+    else:
+        title_label.config(text="Work", fg=GREEN)
+        countdown(work_sec)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -56,7 +57,7 @@ canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 tomato_image = PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=tomato_image)
 timer = canvas.create_text(100, 130, text="25:00", fill="white", font=(FONT_NAME, 35, "bold"))
-title_label = Label(text="Timer", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
+title_label = Label(text="Work", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
 start = Button(text="Start", command=start_timer, highlightthickness=0)
 reset = Button(text="Reset", highlightthickness=0)
 tick = Label(text="✓", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 15, "bold"))
